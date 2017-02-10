@@ -1,1 +1,0 @@
-# gui_python_lab_1
