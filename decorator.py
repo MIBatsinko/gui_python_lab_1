@@ -25,7 +25,7 @@ if __name__ == "__main__":
     data = Calendar(year, month)
     cal = PrintCalendar(data)
 
-    print(cal.showCalendar())
+    cal.showCalendar()
 
 
 
