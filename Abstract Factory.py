@@ -1,32 +1,36 @@
-class AbstractFactory:
-    def suit(self, value):
-        raise NotImplementedError()
+from abc import ABCMeta
 
-    def rank(self, value):
-        raise NotImplementedError()
+# Abstract Factory
+class StandardFactory(object):
+    def get_factory(factory):
+        if factory == 'light color':
+            return LightFactory()
+        elif factory == 'dark color':
+            return DarkFactory()
 
-class Card(AbstractFactory):
-    def suit(self, value):
-        return value
+# Factory
+class LightFactory(object):
+    def get_light_color(self):
+        return LightColor();
 
-    def rank(self, value):
-        return value
+class DarkFactory(object):
+    def get_dark_color(self):
+        return DarkColor();
 
-class getCard:
-    def __init__(self, suit, rank):
-        self.suit = Card().suit(suit)
-        self.rank = Card().rank(rank)
+# Products
+class LightColor(object):
+    def set_color(self):
+        return 'White color'
 
-    def __str__(self):
-        return "Rank: " + self.rank + "\nSuit: " + self.suit
+class DarkColor(object):
+    def set_color(self):
+        return 'Black color'
 
 if __name__ == "__main__":
-    ranks = ['6', '7', '8', '9', '10', 'J', 'L', 'K', 'A']
-    suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
-    cardNumber = 1
+    factory = StandardFactory.get_factory('light color')
+    color = factory.get_light_color()
+    print(color.set_color())
 
-    for suit in suits:
-        for rank in ranks:
-            print("===== Card", cardNumber, "=====")
-            print(getCard(suit, rank))
-            cardNumber += 1
+    factory = StandardFactory.get_factory('dark color')
+    color = factory.get_dark_color()
+    print(color.set_color())
