@@ -1,8 +1,8 @@
 class Singleton():
-  def __new__(this, *args, **kwargs):
+  def __new__(this):
       if not hasattr(this, '_instance'):
             orig = super(Singleton, this)
-            this._instance = orig.__new__(this, *args, **kwargs)
+            this._instance = orig.__new__(this)
       return this._instance
 
 
