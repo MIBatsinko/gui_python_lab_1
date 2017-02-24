@@ -1,0 +1,14 @@
+class Iter(object):
+    def __init__(self, num):
+        self.num = num
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.num += 1
+        return self.num
+
+n = 9
+a = Iter(n)
+print(a.__next__())
