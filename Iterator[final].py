@@ -7,10 +7,10 @@ class count_to:
         return self
 
     def __next__(self):
-        if self.index != len(self.numbers) - 1:
-            self.index += 1
+        if self.index == len(self.numbers) - 1:
+            raise StopIteration
         else:
-            self.index = 0
+            self.index += 1
         return self.numbers[self.index]
 
 if __name__ == "__main__":
