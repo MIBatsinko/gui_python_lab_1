@@ -1,5 +1,12 @@
 import random
 
+class Singleton():
+    def __new__(this):
+        if not hasattr(this, '_instance'):
+            orig = super(Singleton, this)
+            this._instance = orig.__new__(this)
+        return this._instance
+
 
 class Card(object):
     def __init__(self, rank, suit):
@@ -9,8 +16,7 @@ class Card(object):
     def __str__(self):
         return "%s%s" % (self.rank, self.suit)
 
-
-class Deck(object):
+class Deck(Singleton):
     def __init__(self):
         ranks = "23456789TJQKA"
         # Spades, Clubs, Hearts, Diamonds
