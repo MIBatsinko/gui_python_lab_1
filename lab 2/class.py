@@ -1,39 +1,46 @@
 import random
 
-class Singleton():
-    def __new__(this):
-        if not hasattr(this, '_instance'):
-            orig = super(Singleton, this)
-            this._instance = orig.__new__(this)
-        return this._instance
+
+class Iterator:
+    def __init__(self, numbers):
+        self.numbers = numbers
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index != len(self.numbers) - 1:
+            self.index += 1
+        else:
+            self.index = 0
+        return self.numbers[self.index]
 
 
 class Card(object):
     def __init__(self, rank, suit):
+        assert suit in ['S', 'C', 'H', 'D'], 'error'
+        assert rank in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'], 'error'
         self.rank = rank
         self.suit = suit
 
     def __str__(self):
         return "%s%s" % (self.rank, self.suit)
 
-class Deck(Singleton):
-    def __init__(self):
-        ranks = "23456789TJQKA"
-        # Spades, Clubs, Hearts, Diamonds
-        suits = "SCHD"
-        self.cards = [Card(r, s) for r in ranks for s in suits]
 
-    def get_cards(self):
-        for i in range(52):
-            print(self.cards[i])
+class Deck(object):
+    def __init__(self):
+        self.deck = []
+
+    def create_deck(self):
+        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+        # Spades, Clubs, Hearts, Diamonds
+        suits = ['S', 'C', 'H', 'D']
+        self.deck = [Card(r, s) for r in ranks for s in suits]
+        return self.deck
 
     def shuffle_cards(self):
-        random.shuffle(self.cards)
+        random.shuffle(self.create_deck())
 
-
-if __name__ == "__main__":
-    a = Deck()
-    a.get_cards()
-    print('\n\nAfter shuffle:')
-    a.shuffle_cards()
-    a.get_cards()
+    def next_card(self):
+        return Iterator(self.deck)
