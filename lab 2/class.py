@@ -18,9 +18,13 @@ class Iterator:
 
 
 class Card(object):
+    ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+    # Spades, Clubs, Hearts, Diamonds
+    suits = ['S', 'C', 'H', 'D']
+
     def __init__(self, rank, suit):
-        assert suit in ['S', 'C', 'H', 'D'], 'error'
-        assert rank in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'], 'error'
+        assert suit in Card.suits, 'error'
+        assert rank in Card.ranks, 'error'
         self.rank = rank
         self.suit = suit
 
@@ -33,10 +37,7 @@ class Deck(object):
         self.deck = []
 
     def create_deck(self):
-        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-        # Spades, Clubs, Hearts, Diamonds
-        suits = ['S', 'C', 'H', 'D']
-        self.deck = [Card(r, s) for r in ranks for s in suits]
+        self.deck = [Card(r, s) for r in Card.ranks for s in Card.suits]
         return self.deck
 
     def shuffle_cards(self):
@@ -44,3 +45,9 @@ class Deck(object):
 
     def next_card(self):
         return Iterator(self.deck)
+
+a = Deck()
+a.create_deck()
+a.shuffle_cards()
+for i in a.deck:
+    print(i)
